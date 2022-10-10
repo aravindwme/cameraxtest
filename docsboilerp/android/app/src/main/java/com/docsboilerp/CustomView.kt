@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.widget.FrameLayout
 import android.widget.TextView
 
+
 class CustomView(context: Context) : FrameLayout(context) {
   init {
     // set padding and background color
