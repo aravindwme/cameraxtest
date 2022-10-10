@@ -26,13 +26,15 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import NewModuleButton from './src/NewModuleButton';
+import { MyView } from './src/MyView';
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
  * LTI update could not be added via codemod */
 const Section = ({children, title}): Node => {
   const isDarkMode = useColorScheme() === 'dark';
   return (
     <View style={{flex: 1, justifyContent: 'center'}}>
-      <NewModuleButton />
+      {/* <NewModuleButton /> */}
+      <MyView />
     </View>
   );
 };
@@ -52,7 +54,8 @@ const App: () => Node = () => {
         flexDirection: 'column',
         justifyContent: 'center',
       }}>
-      <NewModuleButton />
+      {/* <NewModuleButton /> */}
+      <MyView />
     </SafeAreaView>
   );
 };
