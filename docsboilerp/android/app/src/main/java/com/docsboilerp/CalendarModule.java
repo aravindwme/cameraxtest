@@ -10,6 +10,7 @@ import com.facebook.react.bridge.UiThreadUtil;
 import java.util.Map;
 import java.util.Calendar;
 import java.lang.Integer;
+import java.lang.Runnable;
 import java.util.HashMap;
 import android.widget.Toast;
 import android.util.Log;
@@ -33,15 +34,15 @@ public class CalendarModule extends ReactContextBaseJavaModule {
        Integer eventId = rightNow.getWeekYear();
        callBack.invoke(eventId);
 
-      //  UiThreadUtil.runOnUiThread(
-      //   new Runnable() {
-      //     @Override
-      //     public void run() {
-      //       Toast toast = Toast.makeText(getReactApplicationContext(), eventId, 10);
-      //       toast.setGravity(10, 0, 0);
-      //       toast.show();
-      //     }
-      //   });
-        Toast.makeText(getReactApplicationContext(), "Test", 10).show();
+       UiThreadUtil.runOnUiThread(
+        new Runnable() {
+          @Override
+          public void run() {
+            Toast.makeText(getReactApplicationContext(), "Test", 10).show();
+            // toast.setGravity(10, 0, 0);
+            // toast.show();
+          }
+        });
+
    }
 }
