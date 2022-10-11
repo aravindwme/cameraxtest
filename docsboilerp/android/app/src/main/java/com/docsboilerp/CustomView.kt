@@ -2,6 +2,7 @@ package com.docsboilerp
 import android.Manifest
 import android.os.Build
 import android.app.Activity
+import android.content.Context
 import android.graphics.Color
 import android.widget.FrameLayout
 import android.widget.TextView
@@ -17,12 +18,12 @@ import android.content.pm.PackageManager
 import android.util.Log
 import com.facebook.react.uimanager.ThemedReactContext
 
-class CustomView(context: ThemedReactContext) : FrameLayout(context), LifecycleObserver {
+class CustomView(context: Context) : FrameLayout(context), LifecycleObserver {
 
   private var preview: Preview? = null
   private var viewFinder: PreviewView = PreviewView(context)
   private var cameraProvider: ProcessCameraProvider? = null
-  private val currentContext: ThemedReactContext = context
+  private val currentContext: Context = context
 
 
   init {
@@ -37,7 +38,7 @@ class CustomView(context: ThemedReactContext) : FrameLayout(context), LifecycleO
   }
 
     private fun getActivity() : Activity {
-        return currentContext.currentActivity!!
+        return currentContext.getCurrentActivity()
     }
 
     override fun onAttachedToWindow() {
