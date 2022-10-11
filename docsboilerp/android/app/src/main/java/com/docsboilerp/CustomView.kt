@@ -2,7 +2,6 @@ package com.docsboilerp
 import android.Manifest
 import android.os.Build
 import android.app.Activity
-import android.content.Context
 import android.graphics.Color
 import android.widget.FrameLayout
 import android.widget.TextView
@@ -16,8 +15,9 @@ import androidx.core.content.ContextCompat
 import androidx.core.app.ActivityCompat
 import android.content.pm.PackageManager
 import android.util.Log
+import com.facebook.react.uimanager.ThemedReactContext
 
-class CustomView(context: Context) : FrameLayout(context), LifecycleObserver {
+class CustomView(context: ThemedReactContext) : FrameLayout(context), LifecycleObserver {
 
   private var preview: Preview? = null
   private var viewFinder: PreviewView = PreviewView(context)
