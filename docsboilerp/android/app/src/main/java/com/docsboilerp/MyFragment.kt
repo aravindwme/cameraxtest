@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.facebook.react.uimanager.ThemedReactContext
 
 // replace with your view's import
 import com.docsboilerp.CustomView
