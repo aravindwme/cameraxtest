@@ -4,7 +4,8 @@ import android.content.Context
 import android.graphics.Color
 import android.widget.FrameLayout
 import android.widget.TextView
-import androidx.camera.core.*
+import androidx.camera.core.Preview
+import androidx.camera.core.CameraSelector
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.lifecycle.LifecycleObserver
