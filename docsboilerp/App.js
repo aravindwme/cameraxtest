@@ -54,8 +54,8 @@ const App: () => Node = () => {
         flexDirection: 'column',
         justifyContent: 'center',
       }}>
-      <NewModuleButton />
-      {/* <MyView /> */}
+      {/* <NewModuleButton /> */}
+      <MyView />
     </SafeAreaView>
   );
 };

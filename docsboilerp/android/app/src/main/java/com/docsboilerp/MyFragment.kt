@@ -16,7 +16,7 @@ class MyFragment : Fragment() {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
     super.onCreateView(inflater, container, savedInstanceState)
-    customView = CustomView(requireNotNull(context))
+    customView = CustomView(requireNotNull(context as ThemedReactContext))
     return customView // this CustomView could be any view that you want to render
   }
 

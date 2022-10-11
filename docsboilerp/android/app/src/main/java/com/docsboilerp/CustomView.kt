@@ -18,12 +18,12 @@ import android.content.pm.PackageManager
 import android.util.Log
 import com.facebook.react.uimanager.ThemedReactContext
 
-class CustomView(context: Context) : FrameLayout(context), LifecycleObserver {
+class CustomView(context: ThemedReactContext) : FrameLayout(context), LifecycleObserver {
 
   private var preview: Preview? = null
   private var viewFinder: PreviewView = PreviewView(context)
   private var cameraProvider: ProcessCameraProvider? = null
-  private val currentContext: Context = context
+  private val currentContext: ThemedReactContext = context
 
 
   init {
@@ -38,7 +38,7 @@ class CustomView(context: Context) : FrameLayout(context), LifecycleObserver {
   }
 
     private fun getActivity() : Activity {
-        return currentContext.getCurrentActivity()
+        return currentContext.currentActivity!!
     }
 
     override fun onAttachedToWindow() {
