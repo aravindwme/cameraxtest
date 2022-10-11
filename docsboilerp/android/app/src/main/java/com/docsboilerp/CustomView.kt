@@ -9,6 +9,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.lifecycle.LifecycleObserver
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 
 class CustomView(context: Context) : FrameLayout(context), LifecycleObserver {
 
