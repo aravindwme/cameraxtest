@@ -1,5 +1,5 @@
 package com.docsboilerp
-
+import android.Manifest
 import android.content.Context
 import android.graphics.Color
 import android.widget.FrameLayout
@@ -10,6 +10,8 @@ import androidx.camera.view.PreviewView
 import androidx.lifecycle.LifecycleObserver
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.app.ActivityCompat
+import android.content.pm.PackageManager
 
 class CustomView(context: Context) : FrameLayout(context), LifecycleObserver {
 
@@ -17,6 +19,7 @@ class CustomView(context: Context) : FrameLayout(context), LifecycleObserver {
   private var preview: Preview? = null
   private var viewFinder: PreviewView = PreviewView(context)
   private var cameraProvider: ProcessCameraProvider? = null
+  val requiredPermissions = arrayOf(Manifest.permission.CAMERA)
 
   init {
     // set padding and background color
@@ -30,9 +33,22 @@ class CustomView(context: Context) : FrameLayout(context), LifecycleObserver {
   }
 
     override fun onAttachedToWindow() {
-        super.onAttachedToWindow()
-        viewFinder.post { setupCamera() }
+      super.onAttachedToWindow()
+       if (allPermissionsGranted()) {
+         viewFinder.post { setupCamera() }
+       } else {
+           ActivityCompat.requestPermissions(
+               getActivity(), requiredPermissions, 42)
+       }
+
     }
+
+     //context vs basecontext doubtful
+     private fun allPermissionsGranted() = requiredPermissions.all {
+       ContextCompat.checkSelfPermission(
+           baseContext, it) == PackageManager.PERMISSION_GRANTED
+     }
+
 
     private fun setupCamera() { 
        val cameraProviderFuture = ProcessCameraProvider.getInstance(getActivity())
