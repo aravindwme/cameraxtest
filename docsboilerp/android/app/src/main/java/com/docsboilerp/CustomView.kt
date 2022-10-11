@@ -1,5 +1,7 @@
 package com.docsboilerp
 import android.Manifest
+import android.os.Build
+import android.app.Activity
 import android.content.Context
 import android.graphics.Color
 import android.widget.FrameLayout
@@ -13,14 +15,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.app.ActivityCompat
 import android.content.pm.PackageManager
+import android.util.Log
 
 class CustomView(context: Context) : FrameLayout(context), LifecycleObserver {
 
-  private var camera: Camera? = null
   private var preview: Preview? = null
   private var viewFinder: PreviewView = PreviewView(context)
   private var cameraProvider: ProcessCameraProvider? = null
-  val requiredPermissions = arrayOf(Manifest.permission.CAMERA)
+  private val currentContext: ThemedReactContext = context
+
 
   init {
     // set padding and background color
@@ -33,21 +36,25 @@ class CustomView(context: Context) : FrameLayout(context), LifecycleObserver {
     // })
   }
 
+    private fun getActivity() : Activity {
+        return currentContext.currentActivity!!
+    }
+
     override fun onAttachedToWindow() {
       super.onAttachedToWindow()
        if (allPermissionsGranted()) {
          viewFinder.post { setupCamera() }
        } else {
            ActivityCompat.requestPermissions(
-               getActivity(), requiredPermissions, 42)
+               getActivity(), REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
        }
 
     }
 
      //context vs basecontext doubtful
-     private fun allPermissionsGranted() = requiredPermissions.all {
+     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
        ContextCompat.checkSelfPermission(
-           baseContext, it) == PackageManager.PERMISSION_GRANTED
+           context, it) == PackageManager.PERMISSION_GRANTED
      }
 
 
@@ -82,4 +89,19 @@ class CustomView(context: Context) : FrameLayout(context), LifecycleObserver {
 
        }, ContextCompat.getMainExecutor(getActivity()))
     }
+
+    companion object {
+       private const val TAG = "CameraXApp"
+       private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
+       private const val REQUEST_CODE_PERMISSIONS = 10
+       private val REQUIRED_PERMISSIONS =
+           mutableListOf (
+               Manifest.permission.CAMERA,
+               Manifest.permission.RECORD_AUDIO
+           ).apply {
+               if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+                   add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+               }
+           }.toTypedArray()
+   }
 }
